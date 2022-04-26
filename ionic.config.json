@@ -1,0 +1,7 @@
+{
+  "name": "feedback-form-trigma",
+  "integrations": {
+    "cordova": {}
+  },
+  "type": "angular"
+}

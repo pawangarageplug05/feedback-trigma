@@ -1,0 +1,111 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>
+      Feedback
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <ion-card mode="ios" class="ion-no-margin">
+    <p class="">Please select type of feedback</p>
+
+    <ion-row class="ion-margin-top">
+      <ion-col size="6">
+        <div class="button-secondary" (click)="selectFeedbackType('App Suggestion')"
+          [ngClass]="{'button-primary': feedbackRequestObject.feedback_info_related_to == 'App Suggestion'}">
+          App Suggestion
+        </div>
+
+      </ion-col>
+      <ion-col size="6">
+        <div class="button-secondary" (click)="selectFeedbackType('Problem on the order')"
+          [ngClass]="{'button-primary': feedbackRequestObject.feedback_info_related_to == 'Problem on the order'}">
+          Problem on the order</div>
+
+      </ion-col>
+    </ion-row>
+  </ion-card>
+
+  <ion-card mode="ios" class="ion-no-margin">
+    <p class="">Location</p>
+
+    <ion-row class="ion-margin-top">
+      <ion-col size="12">
+        <ion-select placeholder="Select One" [(ngModel)]="selectedLocation" (ionChange)="changeLocation($event)">
+          <ion-select-option [value]="location" *ngFor="let location of locationData">
+            {{location?.master_restaurant_address}}</ion-select-option>
+        </ion-select>
+      </ion-col>
+
+    </ion-row>
+  </ion-card>
+
+  <ion-card mode="ios" class="ion-no-margin">
+    <p class="">Suggestion/Complaints</p>
+
+    <ion-row class="ion-margin-top">
+      <ion-col size="12">
+        <ion-textarea rows="6" cols="20"
+          placeholder="Enter your feedback here... such as product feedback, order Problem and etc. we will try to improve..."
+          [(ngModel)]="feedbackRequestObject.feedback_info_suggestion"></ion-textarea>
+
+      </ion-col>
+
+    </ion-row>
+  </ion-card>
+
+  <ion-card mode="ios" class="ion-no-margin">
+    <p class="">Attachments</p>
+
+    <ion-row class="ion-margin-top">
+      <ion-col style="display: flex;">
+
+        <div class="img-class" (click)="chooseImageOption(1)"
+          [ngClass]="{'img-class1':!feedbackRequestObject.feedback_info_attachment_1}">
+          <div *ngIf="!feedbackRequestObject?.feedback_info_attachment_1">
+            <ion-icon name="add-outline"></ion-icon>
+            <div>Add Image </div>
+          </div>
+          <img *ngIf="feedbackRequestObject?.feedback_info_attachment_1"
+            [src]="feedbackRequestObject.feedback_info_attachment_1">
+          <ion-icon class="delete-icon" name="remove-circle" *ngIf="feedbackRequestObject?.feedback_info_attachment_1"
+            (click)="removeImage(1)"></ion-icon>
+
+        </div>
+        <div class="img-class" (click)="chooseImageOption(2)"
+          [ngClass]="{'img-class1':!feedbackRequestObject.feedback_info_attachment_2}">
+          <div *ngIf="!feedbackRequestObject?.feedback_info_attachment_2">
+            <ion-icon name="add-outline"></ion-icon>
+            <div>Add Image </div>
+          </div>
+          <img *ngIf="feedbackRequestObject?.feedback_info_attachment_2"
+            [src]="feedbackRequestObject.feedback_info_attachment_2">
+          <ion-icon class="delete-icon" name="remove-circle" *ngIf="feedbackRequestObject?.feedback_info_attachment_2"
+            (click)="removeImage(2)"></ion-icon>
+        </div>
+        <div class="img-class" (click)="chooseImageOption(3)"
+          [ngClass]="{'img-class1':!feedbackRequestObject.feedback_info_attachment_3}">
+          <div *ngIf="!feedbackRequestObject?.feedback_info_attachment_3">
+            <ion-icon name="add-outline"></ion-icon>
+            <div>Add Image </div>
+          </div>
+          <img *ngIf="feedbackRequestObject?.feedback_info_attachment_3"
+            [src]="feedbackRequestObject.feedback_info_attachment_3">
+          <ion-icon class="delete-icon" name="remove-circle" *ngIf="feedbackRequestObject?.feedback_info_attachment_3"
+            (click)="removeImage(3)"></ion-icon>
+
+        </div>
+      </ion-col>
+
+    </ion-row>
+  </ion-card>
+
+  <ion-card class="submit">
+    <ion-row>
+      <ion-col class="ion-padding">
+        <ion-button expand="block" color="dark" (click)="validateForm()">Submit</ion-button>
+      </ion-col>
+    </ion-row>
+  </ion-card>
+</ion-content>
